@@ -1,12 +1,48 @@
 //Global variables
 var allProducts = [];
-var imagePool = [];
-var maxClicks = 25;
+var totalClicks = 0;
+var maxClicks = 3;
 var appField = document.getElementById('app-field');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
 var right = document.getElementById('right');
 var productNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+
+//Chart Stuff
+var votes = [];
+var resultsChart;
+var chartDrawn = false;
+
+function updateChartArrays() {
+  for (var i = 0; i < allProducts.length; i++) {
+    productNames[i] = allProducts[i].itemName;
+    votes[i] = allProducts[i].clicks;
+  }
+}
+
+var resultsData = {
+  labels : productNames,
+  datasets : [
+    {
+      fillColor : '#ff6622',
+      strokeColor : '#aa991c',
+      data : votes
+    }
+  ]
+};
+
+function drawChart() {
+  updateChartArrays();
+  var ctx = document.getElementById('results').getContext('2d');
+  resultsChart = new Chart(ctx,{
+    type: 'bar',
+    data: resultsData,
+    options: {
+      responsive: false
+    }
+  });
+  chartDrawn = true;
+}
 
 //Product constructor
 function Product(itemName) {
@@ -32,7 +68,6 @@ function displayProducts() {
   left.src = allProducts[leftIndex].path;
   left.alt = allProducts[leftIndex].itemName;
   allProducts[leftIndex].views += 1;
-  console.log(allProducts[leftIndex].itemName + ' has been shown ' + allProducts[leftIndex].views + ' times');
 
   var centerIndex = randNum(0, allProducts.length);
   while (centerIndex === leftIndex) {
@@ -41,7 +76,6 @@ function displayProducts() {
   center.src = allProducts[centerIndex].path;
   center.alt = allProducts[centerIndex].itemName;
   allProducts[centerIndex].views += 1;
-  console.log(allProducts[centerIndex].itemName + ' has been shown ' + allProducts[centerIndex].views + ' times');
 
   var rightIndex = randNum(0, allProducts.length);
   while (rightIndex === leftIndex || rightIndex === centerIndex) {
@@ -50,23 +84,29 @@ function displayProducts() {
   right.src = allProducts[rightIndex].path;
   right.alt = allProducts[rightIndex].itemName;
   allProducts[rightIndex].views += 1;
-  console.log(allProducts[rightIndex].itemName + ' has been shown ' + allProducts[rightIndex].views + ' times');
 }
 
 function handleClick(event) {
+  totalClicks += 1;
   if (event.target.id === 'app-field') {
     return alert('Hey dummy, click directly on one of the three items shown!');
+  }
+
+  if (totalClicks >= maxClicks) {
+    return alert('Thanks for participating! Please click the "Get Results" button on the page to view a breakdown of your choices.');
   }
 
   for (var i = 0; i < allProducts.length; i++) {
     if (event.target.alt === allProducts[i].itemName) {
       allProducts[i].clicks += 1;
-      console.log(allProducts[i].itemName + ' has ' + allProducts[i].clicks + ' clicks.');
     }
   }
   displayProducts();
 }
 
 appField.addEventListener('click', handleClick);
+document.getElementById('get-results').addEventListener('click', function(){
+  drawChart();
+});
 
 displayProducts();
