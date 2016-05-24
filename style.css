@@ -1,1 +1,29 @@
-//-css page
+/*//-css page*/
+
+body {
+  margin: 0px auto 0px auto;
+  background-color: blue;
+}
+
+header {
+  margin: 0px auto 0px auto;
+  text-align: center;
+}
+
+main {
+  margin: 0px auto 0px auto;
+  background-color: gray;
+  max-width: 90%;
+}
+
+#app-field {
+  height: 351px;
+  width: 1065px;
+  background-color: green;
+  margin: inherit;
+}
+
+.products {
+  height: 350px;
+  width: 350px;
+}

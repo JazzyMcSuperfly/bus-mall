@@ -42,17 +42,14 @@ var wineGlass = new Product('images/wine-glass.jpg', 'wine-glass');
 
 //Get random image function
 var getRandomImg = function(min, max) {
+  imagePool = [];
   var useRandom1 = Math.floor(Math.random() * (max - min)) + min;
   var useRandom2 = Math.floor(Math.random() * (max - min)) + min;
   var useRandom3 = Math.floor(Math.random() * (max - min)) + min;
-  console.log(useRandom1);
-  console.log(useRandom2);
-  console.log(useRandom3);
   if (useRandom1 === useRandom2 || useRandom2 === useRandom3 || useRandom1 === useRandom3) {
     getRandomImg(0, products.length);
   } else {
     imagePool.push(products[useRandom1], products[useRandom2], products[useRandom3]);
-    console.log(imagePool);
   }
 };
 
@@ -62,8 +59,11 @@ var displayThree = function() {
   center.src = imagePool[2].path;
   for (var i = 0; i < imagePool.length; i++) {
     imagePool[i].views++;
-    console.log(imagePool[i]);
   }
+};
+
+function clickCounter(event) {
+  console.log(this);
 };
 
 function handleClick(event) {
@@ -72,3 +72,6 @@ function handleClick(event) {
 }
 
 clickZone.addEventListener('click', handleClick);
+left.addEventListener('click', clickCounter);
+center.addEventListener('click', clickCounter);
+right.addEventListener('click', clickCounter);
