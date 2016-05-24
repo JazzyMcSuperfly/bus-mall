@@ -1,77 +1,72 @@
 //Global variables
-var products = [];
+var allProducts = [];
 var imagePool = [];
 var maxClicks = 25;
-var clickZone = document.getElementById('app-field');
+var appField = document.getElementById('app-field');
 var left = document.getElementById('left');
-var right = document.getElementById('right');
 var center = document.getElementById('center');
-// var img = document.createElement('img');
+var right = document.getElementById('right');
+var productNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 
 //Product constructor
-function Product(path, itemName) {
-  this.path = path;
+function Product(itemName) {
+  this.path = 'images/' + itemName + '.jpg';
   this.itemName = itemName;
   this.clicks = 0;
   this.views = 0;
-
-  products.push(this);
 }
 
-//Populate array with existing products
-var bag = new Product('images/bag.jpg', 'bag');
-var banana = new Product('images/banana.jpg', 'banana');
-var bathroom = new Product('images/bathroom.jpg', 'bathroom');
-var boots = new Product('images/boots.jpg', 'boots');
-var breakfast = new Product('images/breakfast.jpg', 'breakfast');
-var bubblegum = new Product('images/bubblegum.jpg', 'bubblegum');
-var chair = new Product('images/chair.jpg', 'chair');
-var cthulu = new Product('images/cthulhu.jpg', 'cthulu');
-var dogDuck = new Product('images/dog-duck.jpg', 'dog-duck');
-var dragon = new Product('images/dragon.jpg', 'dragon');
-var pen = new Product('images/pen.jpg', 'pen');
-var petSweep = new Product('images/pet-sweep.jpg', 'pet-sweep');
-var scissors = new Product('images/scissors.jpg', 'scissors');
-var shark = new Product('images/shark.jpg', 'shark');
-var sweep = new Product('images/sweep.jpg', 'sweep');
-var tauntaun = new Product('images/tauntaun.jpg', 'tauntaun');
-var unicorn = new Product('images/unicorn.jpg', 'unicorn');
-var usp = new Product('images/usb.jpg', 'usb');
-var waterCan = new Product('images/water-can.jpg', 'water-can');
-var wineGlass = new Product('images/wine-glass.jpg', 'wine-glass');
+//Construct Products and push to all products array
+for (var i = 0; i < productNames.length; i++) {
+  allProducts.push(new Product(productNames[i]));
+}
 
-//Get random image function
-var getRandomImg = function(min, max) {
-  imagePool = [];
-  var useRandom1 = Math.floor(Math.random() * (max - min)) + min;
-  var useRandom2 = Math.floor(Math.random() * (max - min)) + min;
-  var useRandom3 = Math.floor(Math.random() * (max - min)) + min;
-  if (useRandom1 === useRandom2 || useRandom2 === useRandom3 || useRandom1 === useRandom3) {
-    getRandomImg(0, products.length);
-  } else {
-    imagePool.push(products[useRandom1], products[useRandom2], products[useRandom3]);
+//Get random number
+function randNum(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+//Set 'SRC' and 'ALT' of the corresponding image tag
+function displayProducts() {
+  var leftIndex = randNum(0, allProducts.length);
+  left.src = allProducts[leftIndex].path;
+  left.alt = allProducts[leftIndex].itemName;
+  allProducts[leftIndex].views += 1;
+  console.log(allProducts[leftIndex].itemName + ' has been shown ' + allProducts[leftIndex].views + ' times');
+
+  var centerIndex = randNum(0, allProducts.length);
+  while (centerIndex === leftIndex) {
+    centerIndex = randNum(0, allProducts.length);
   }
-};
+  center.src = allProducts[centerIndex].path;
+  center.alt = allProducts[centerIndex].itemName;
+  allProducts[centerIndex].views += 1;
+  console.log(allProducts[centerIndex].itemName + ' has been shown ' + allProducts[centerIndex].views + ' times');
 
-var displayThree = function() {
-  left.src = imagePool[0].path;
-  right.src = imagePool[1].path;
-  center.src = imagePool[2].path;
-  for (var i = 0; i < imagePool.length; i++) {
-    imagePool[i].views++;
+  var rightIndex = randNum(0, allProducts.length);
+  while (rightIndex === leftIndex || rightIndex === centerIndex) {
+    rightIndex = randNum(0, allProducts.length);
   }
-};
-
-function clickCounter(event) {
-  console.log(this);
-};
+  right.src = allProducts[rightIndex].path;
+  right.alt = allProducts[rightIndex].itemName;
+  allProducts[rightIndex].views += 1;
+  console.log(allProducts[rightIndex].itemName + ' has been shown ' + allProducts[rightIndex].views + ' times');
+}
 
 function handleClick(event) {
-  getRandomImg(0, products.length);
-  displayThree();
+  if (event.target.id === 'app-field') {
+    return alert('Hey dummy, click directly on one of the three items shown!');
+  }
+
+  for (var i = 0; i < allProducts.length; i++) {
+    if (event.target.alt === allProducts[i].itemName) {
+      allProducts[i].clicks += 1;
+      console.log(allProducts[i].itemName + ' has ' + allProducts[i].clicks + ' clicks.');
+    }
+  }
+  displayProducts();
 }
 
-clickZone.addEventListener('click', handleClick);
-left.addEventListener('click', clickCounter);
-center.addEventListener('click', clickCounter);
-right.addEventListener('click', clickCounter);
+appField.addEventListener('click', handleClick);
+
+displayProducts();
