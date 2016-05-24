@@ -1,4 +1,3 @@
-/*//-css page*/
 
 body {
   margin: 0px auto 0px auto;
@@ -17,10 +16,14 @@ main {
 }
 
 #app-field {
-  height: 351px;
-  width: 1065px;
+  height: 356px;
+  width: 1075px;
   background-color: green;
   margin: inherit;
+}
+
+#chart-space {
+  background-color: white;
 }
 
 .products {
