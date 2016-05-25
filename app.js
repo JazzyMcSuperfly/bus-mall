@@ -1,15 +1,14 @@
 //Global variables
 var allProducts = [];
 var totalClicks = 0;
-var maxClicks = 26;
+var maxClicks = 10;
+var clearStorage = document.getElementById('clear-storage');
 var getResults = document.getElementById('get-results');
 var appField = document.getElementById('app-field');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
 var right = document.getElementById('right');
 var productNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-
-// getResults.hidden = true;
 
 //Chart Stuff
 var votes = [];
@@ -99,6 +98,7 @@ function handleClick(event) {
 
   if (totalClicks >= maxClicks) {
     getResults.style.visibility = 'visible';
+    appField.removeEventListener('click', handleClick);
     return alert('Thanks for participating! Please click the "Get Results" button on the page to view a breakdown of your choices.');
   }
 
@@ -107,6 +107,8 @@ function handleClick(event) {
       allProducts[i].clicks += 1;
     }
   }
+  var stringy = JSON.stringify(allProducts);
+  localStorage.setItem('productData', stringy);
   displayProducts();
 }
 
@@ -115,6 +117,21 @@ getResults.addEventListener('click', function(){
   drawChart();
   getResults.style.visibility = 'hidden';
 });
+
+clearStorage.addEventListener('click', function() {
+  localStorage.clear();
+});
+
+(function(){
+  if (localStorage.productData) {
+    console.log('local storage exists');
+    var productData = JSON.parse(localStorage.getItem('productData'));
+    console.log(productData);
+    for (var i = 0; i < allProducts.length; i++) {
+      allProducts[i] = productData[i];
+    }
+  }
+})();
 
 getResults.style.visibility = 'hidden';
 displayProducts();
