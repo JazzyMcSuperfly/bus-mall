@@ -98,7 +98,7 @@ function handleClick(event) {
   }
 
   if (totalClicks >= maxClicks) {
-    // getResults.hidden = false;
+    getResults.style.visibility = 'visible';
     return alert('Thanks for participating! Please click the "Get Results" button on the page to view a breakdown of your choices.');
   }
 
@@ -113,8 +113,8 @@ function handleClick(event) {
 appField.addEventListener('click', handleClick);
 getResults.addEventListener('click', function(){
   drawChart();
-  // getResults.hidden = true;
+  getResults.style.visibility = 'hidden';
 });
 
-// getResults.hidden = true;
+getResults.style.visibility = 'hidden';
 displayProducts();
