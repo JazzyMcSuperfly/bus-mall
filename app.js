@@ -39,7 +39,7 @@ var resultsData = {
 function drawChart() {
   updateChartArrays();
   var ctx = document.getElementById('results').getContext('2d');
-  resultsChart = new Chart(ctx,{
+  resultsChart = new Chart(ctx, {
     type: 'bar',
     data: resultsData,
     options: {
