@@ -1,12 +1,15 @@
 //Global variables
 var allProducts = [];
 var totalClicks = 0;
-var maxClicks = 3;
+var maxClicks = 26;
+var getResults = document.getElementById('get-results');
 var appField = document.getElementById('app-field');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
 var right = document.getElementById('right');
 var productNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+
+// getResults.hidden = true;
 
 //Chart Stuff
 var votes = [];
@@ -24,8 +27,10 @@ var resultsData = {
   labels : productNames,
   datasets : [
     {
-      fillColor : '#ff6622',
-      strokeColor : '#aa991c',
+      label : 'Bus Mall Focus Results',
+      backgroundColor : '#fca311',
+      borderColor : '#14213d',
+      borderWidth : 2,
       data : votes
     }
   ]
@@ -93,6 +98,7 @@ function handleClick(event) {
   }
 
   if (totalClicks >= maxClicks) {
+    // getResults.hidden = false;
     return alert('Thanks for participating! Please click the "Get Results" button on the page to view a breakdown of your choices.');
   }
 
@@ -105,8 +111,10 @@ function handleClick(event) {
 }
 
 appField.addEventListener('click', handleClick);
-document.getElementById('get-results').addEventListener('click', function(){
+getResults.addEventListener('click', function(){
   drawChart();
+  // getResults.hidden = true;
 });
 
+// getResults.hidden = true;
 displayProducts();
