@@ -1,7 +1,7 @@
 //Global variables
 var allProducts = [];
 var totalClicks = 0;
-var maxClicks = 10;
+var maxClicks = 26;
 var clearStorage = document.getElementById('clear-storage');
 var getResults = document.getElementById('get-results');
 var appField = document.getElementById('app-field');
