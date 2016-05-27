@@ -3,27 +3,24 @@
 <html>
   <head>
     <title>BUS MALL FOCUS TEST</title>
+    <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="chart.js"></script>
   </head>
   <body>
-    <header>
-      <h1>///<em>Bus-Mall</em>/// FOCUS TEST</h1>
+    <header class="borders">
+      <h1>///<em>Bus-Mall</em> ///<br/> FOCUS TEST</h1>
     </header>
-    <main>
-      <button id="clear-storage">
-        Clear Local Storage
-      </button>
+    <main class="borders">
       <section id="intro">
         <p>
           Welcome to the Bus-Mall focus group! Please follow the instructions below to participate in this market research study.
         </p>
-        <br/>
         <p>
           Please click on one of our fabulous products below to select it as your favorite of the 3 shown. You'll have to make 25 clicks before the results will be available.
         </p>
         <p>
-          When you are finished, please click the "GET RESULTS" button at the bottom of the page.
+          When you are finished, please click the "GET RESULTS" button in the section below.
         </p>
         <p>
           Thanks for participating, and have fun!
@@ -36,7 +33,9 @@
       </section>
       <section id="chart-space">
         <button id="get-results">GET RESULTS</button>
-        <canvas id="results" height="700" width="800"></canvas>
+        <ul id="product-percentages">
+        </ul>
+        <canvas id="results" height="400" width="650"></canvas>
       </section>
     </main>
     <script src="app.js"></script>
