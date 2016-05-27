@@ -1,24 +1,22 @@
 * {
-  border-radius: 5px;
+  font-family: 'Bree serif', serif;
 }
 
 body {
-  margin: 15px auto 25px auto;
-  background-color: #14213d;
+  margin: 10px auto;
+  background-color: darkgray;
 }
 
 header {
   width: 45%;
   background-color: #000000;
   color: #fca311;
-  margin: 0px auto 0px auto;
   text-align: center;
+  margin: inherit;
 }
 
 main {
-  margin: 0px auto 0px auto;
-  background-color: #fca311;
-  border: 5px solid #14213d;
+  margin: inherit;
   max-width: 90%;
 }
 
@@ -35,29 +33,45 @@ button {
   width: 150px;
   font-weight: bolder;
   box-shadow: 3px 3px 5px 5px;
-  /*position: relative;*/
 }
 
-#results {
-  margin: 0px auto;
+ul {
+  margin-right: 10%;
 }
 
 #app-field {
-  height: 352px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 355px;
   width: 100%;
-  background-color: #e5e5e5;
-  margin: inherit;
-  border: 1px solid #14213d;
+  background-color: #14213d;
 }
 
 #chart-space {
-  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 500px;
+  width: 90%;
+  margin: 0px auto;
+}
+
+#intro {
+  padding: 15px;
+}
+
+#results {
+  background-color: white;
+}
+
+.borders {
+  border-radius: 5px;
+  border: 5px solid #14213d;
+  background-color: teal;
 }
 
 .products {
-  display: inline-block;
-  border: 1px solid #14213d;
-  height: 350px;
-  width: 350px;
-  margin-left: 70px;
+  height: 100%;
+  width: 31%;
 }

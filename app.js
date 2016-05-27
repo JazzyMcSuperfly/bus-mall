@@ -2,8 +2,10 @@
 var allProducts = [];
 var totalClicks = 0;
 var maxClicks = 26;
-var clearStorage = document.getElementById('clear-storage');
+var results = document.getElementById('results');
+var percentages = document.getElementById('product-percentages');
 var getResults = document.getElementById('get-results');
+var chartSpace = document.getElementById('chart-space');
 var appField = document.getElementById('app-field');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
@@ -27,9 +29,9 @@ var resultsData = {
   datasets : [
     {
       label : 'Bus Mall Focus Results',
-      backgroundColor : '#fca311',
-      borderColor : '#14213d',
-      borderWidth : 2,
+      backgroundColor : '#fcb07e',
+      borderColor : '#3581b8',
+      borderWidth : 3,
       data : votes
     }
   ]
@@ -90,10 +92,20 @@ function displayProducts() {
   allProducts[rightIndex].views += 1;
 }
 
+function listPercent() {
+  for (var i = 0; i < allProducts.length; i++) {
+    var liEl = document.createElement('li');
+    var percent = parseInt((allProducts[i].clicks / allProducts[i].views) * 100);
+    console.log(percent);
+    liEl.textContent = allProducts[i].itemName.toUpperCase() + ' @ ' + percent + '% popular';
+    percentages.appendChild(liEl);
+  }
+}
+
 function handleClick(event) {
   totalClicks += 1;
   if (event.target.id === 'app-field') {
-    return alert('Hey dummy, click directly on one of the three items shown!');
+    return alert('Hey friend! Please click directly on one of the three items shown!');
   }
 
   if (totalClicks >= maxClicks) {
@@ -114,12 +126,10 @@ function handleClick(event) {
 
 appField.addEventListener('click', handleClick);
 getResults.addEventListener('click', function(){
+  results.style.visibility = 'visible';
   drawChart();
+  listPercent();
   getResults.style.visibility = 'hidden';
-});
-
-clearStorage.addEventListener('click', function() {
-  localStorage.clear();
 });
 
 (function(){
@@ -133,5 +143,6 @@ clearStorage.addEventListener('click', function() {
   }
 })();
 
+results.style.visibility = 'hidden';
 getResults.style.visibility = 'hidden';
 displayProducts();
