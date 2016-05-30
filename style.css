@@ -1,5 +1,6 @@
 * {
   font-family: 'Bree serif', serif;
+  color: darkgray;
 }
 
 body {
@@ -37,6 +38,7 @@ button {
 
 ul {
   margin-right: 10%;
+  column-count: 2;
 }
 
 #app-field {
